@@ -33,6 +33,7 @@ class Product:
         return hash(self.name + self.description)
 
 
+@dataclass
 class Cart:
     products: dict[Product, int]
 

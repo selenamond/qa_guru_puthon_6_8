@@ -23,12 +23,6 @@ class TestProducts:
 
 
 class TestCart:
-    """
-    TODO Напишите тесты на методы класса Cart
-        На каждый метод у вас должен получиться отдельный тест
-        На некоторые методы у вас может быть несколько тестов.
-        Например, негативные тесты, ожидающие ошибку (используйте pytest.raises, чтобы проверить это)
-    """
 
     def test_add_product_to_cart(self, cart, book):
         cart.add_product(book, 10)
@@ -74,4 +68,3 @@ class TestCart:
     def test_buy_empty_cart(self, cart):
         with pytest.raises(ValueError):
             cart.buy()
-
