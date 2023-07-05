@@ -40,11 +40,10 @@ class Cart:
         self.products = {}
 
     def add_product(self, product: Product, buy_count=1) -> dict:
-        if product.check_quantity(buy_count):
-            if product in self.products:
-                self.products[product] += buy_count
-            else:
-                self.products[product] = buy_count
+        if product in self.products:
+            self.products[product] += buy_count
+        else:
+            self.products[product] = buy_count
         return self.products
 
     def remove_product(self, product: Product, remove_count=None):
@@ -63,8 +62,11 @@ class Cart:
         return total_price
 
     def buy(self):
-        if not self.products:
+        if len(self.products) == 0:
             raise ValueError('Корзина пустая')
         for product in self.products.keys():
-            product.buy(self.products.get(product))
+            if product.check_quantity(self.products[product]):
+                product.buy(self.products[product])
+            else:
+                raise ValueError('Недостаточно товара на складе')
         self.clear()
