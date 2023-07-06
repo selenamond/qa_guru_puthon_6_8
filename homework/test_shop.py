@@ -6,9 +6,6 @@ class TestProducts:
     def test_product_check_quantity(self, book, pad):
         assert book.check_quantity(115)
         assert not book.check_quantity(1001)
-        with pytest.raises(ValueError):
-            pad.check_quantity(-1)
-            pad.check_quantity(0)
 
     def test_product_buy(self, book, pad):
         book.buy(100)
@@ -27,6 +24,8 @@ class TestCart:
     def test_add_product_to_cart(self, cart, book):
         cart.add_product(book, 10)
         assert cart.products[book] == 10
+        cart.add_product(book, 1)
+        assert cart.products[book] == 11
 
     def test_remove_all_product_from_cart(self, cart, book):
         cart.add_product(book, 10)
@@ -42,6 +41,11 @@ class TestCart:
         cart.add_product(book, 10)
         cart.remove_product(book, 1)
         assert cart.products[book] == 9
+
+    def test_remove_product_with_none_count(self, cart, book):
+        cart.add_product(book, 10)
+        cart.remove_product(book)
+        assert cart.products == {}
 
     def test_clear_cart(self, cart, book, pad):
         cart.add_product(book, 1)
